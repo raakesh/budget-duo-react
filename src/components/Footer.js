@@ -1,13 +1,14 @@
 import React from "react";
+import logo from "../images/mark_knockout.svg";
 
 const Footer = () => (
   <footer className="bg-smoke p-8 flex-no-shrink">
     <div className="container mx-auto text-sm text-white text-center">
-      <img src="images/mark_knockout.svg" alt="" className="w-8 mb-4" />
+      <img src={logo} alt="" className="w-8 mb-4" />
       <p className="mb-4">
         A project by{" "}
         <a
-          href="https://github.com/hursey013/"
+          href="https://bhurst.me"
           className="text-white font-bold no-underline"
         >
           @hursey013
@@ -27,20 +28,15 @@ const Footer = () => (
           </a>
         </li>
         <li className="mx-2">
-          <a href="tos.html" className="text-white font-bold" target="_blank">
-            Terms of Service
-          </a>
-        </li>
-        <li className="mx-2">
           <a
             href="https://github.com/hursey013/budget-duo"
             className="text-white font-bold"
           >
-            Github
+            GitHub
           </a>
         </li>
       </ul>
-      <p className="mb-4">&copy; 2018 BudgetDuo</p>
+      <p className="mb-4">&copy; 2019 BudgetDuo</p>
     </div>
   </footer>
 );

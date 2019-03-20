@@ -1,16 +1,25 @@
 import React, { Component } from "react";
+import CurrencyInput from "react-currency-input";
 
 class Expense extends Component {
   handleChange = event => {
-    const updatedExpense = {
+    const updatedItem = {
       ...this.props.item,
       [event.currentTarget.name]: event.currentTarget.value
+    };
+    this.props.updateExpense(this.props.index, updatedItem);
+  };
+
+  handleCurrencyChange = (event, maskedvalue, floatvalue) => {
+    const updatedExpense = {
+      ...this.props.item,
+      cost: floatvalue
     };
     this.props.updateExpense(this.props.index, updatedExpense);
   };
 
   render() {
-    const { item, cost } = this.props.item;
+    const { item, cost, payer } = this.props.item;
 
     return (
       <div className="flex items-center -mx-1 mb-4">
@@ -25,42 +34,44 @@ class Expense extends Component {
             onChange={this.handleChange}
           />
         </div>
-        <div className="select relative flex-none w-1/4 px-1">
-          <select
-            className="input rounded pr-8"
-            name="split"
-            aria-labelledby="expense_payer"
-          >
-            <option value="0">You</option>
-            <option value="1">Partner</option>
-          </select>
-          <div className="pointer-events-none absolute pin-y pin-r flex items-center px-2">
-            <svg
-              className="fill-current h-4 w-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
+        {this.props.split === "adhoc" && (
+          <div className="select relative flex-none w-1/4 px-1">
+            <select
+              className="input rounded pr-8"
+              name="payer"
+              value={payer}
+              aria-labelledby="expense_payer"
+              onChange={this.handleChange}
             >
-              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-            </svg>
+              {this.props.incomes.map((income, index) => (
+                <option key={index}>{income.name}</option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute pin-y pin-r flex items-center px-2">
+              <svg
+                className="fill-current h-4 w-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+              </svg>
+            </div>
           </div>
-        </div>
+        )}
         <div className="flex-none items-center w-2/5 lg:w-1/3 px-1 flex">
           <div className="bg-grey-light p-3 rounded-tl rounded-bl shadow leading-tight">
             $
           </div>
-          <input
-            className="input flex-1 rounded-l-none rounded-r leading-tight"
-            type="tel"
+          <CurrencyInput
+            className="input flex-1 rounded-l-none rounded-r leading-tight text-right"
             name="cost"
             value={cost}
-            data-type="currency"
-            maxLength="20"
             aria-labelledby="expense_cost"
-            onChange={this.handleChange}
+            onChangeEvent={this.handleCurrencyChange}
           />
         </div>
         <button
-          className="remove flex-none px-1"
+          className="flex-none px-1"
           title="Delete expense"
           onClick={() => this.props.removeExpense(this.props.index)}
         >

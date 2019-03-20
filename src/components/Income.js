@@ -1,11 +1,19 @@
 import React, { Component } from "react";
+import CurrencyInput from "react-currency-input";
 
 class Income extends Component {
   handleChange = event => {
-    console.log(event);
     const updatedIncome = {
       ...this.props.item,
       [event.currentTarget.name]: event.currentTarget.value
+    };
+    this.props.updateIncome(this.props.index, updatedIncome);
+  };
+
+  handleCurrencyChange = (event, maskedvalue, floatvalue) => {
+    const updatedIncome = {
+      ...this.props.item,
+      amount: floatvalue
     };
     this.props.updateIncome(this.props.index, updatedIncome);
   };
@@ -18,7 +26,7 @@ class Income extends Component {
         <div className="flex items-center -mx-1">
           <div
             className="flex-1 px-1 uppercase text-white"
-            id="name_label_{{index}}"
+            id={`name_label_${this.props.index}`}
           >
             {name}
           </div>
@@ -28,7 +36,7 @@ class Income extends Component {
               aria-label="The sum of wages and salaries before any taxes or deductions."
             >
               <span
-                id="amount_label_{{index}}"
+                id={`amount_label_${this.props.index}`}
                 className="label border-b border-dotted no-underline leading-none text-right block"
               >
                 Total income
@@ -42,9 +50,9 @@ class Income extends Component {
               type="range"
               name="amount"
               value={amount}
-              min="0"
-              max="250000"
-              step="500"
+              min="0.00"
+              max="250000.00"
+              step="500.00"
               className="input-range text-white w-full"
               onChange={this.handleChange}
             />
@@ -53,15 +61,17 @@ class Income extends Component {
             <div className="bg-grey-light p-3 rounded-tl rounded-bl shadow leading-tight">
               $
             </div>
-            <input
-              className="input flex-1 rounded-l-none rounded-r leading-tight"
+            <CurrencyInput
+              className="input flex-1 rounded-l-none rounded-r leading-tight text-right"
               type="tel"
               name="amount"
               value={amount}
               data-type="currency"
               maxLength="20"
-              aria-labelledby="amount_label_{{index}} name_label_{{index}}"
-              onChange={this.handleChange}
+              aria-labelledby={`amount_label_${this.props.index} name_label_${
+                this.props.index
+              }`}
+              onChangeEvent={this.handleCurrencyChange}
             />
           </div>
         </div>
