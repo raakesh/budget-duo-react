@@ -5,8 +5,10 @@
   "dependencies": {
     "autoprefixer": "^9.5.0",
     "basscss-input-range": "^3.0.0",
+    "firebase": "^5.9.0",
     "hint.css": "^2.5.1",
     "postcss-cli": "^6.1.1",
+    "re-base": "^4.0.0",
     "react": "^16.8.1",
     "react-currency-input": "^1.3.6",
     "react-dom": "^16.8.1",

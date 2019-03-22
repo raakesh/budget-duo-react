@@ -10,5 +10,6 @@
   "incomes": [
     { "name": "You", "amount": "35000" },
     { "name": "Partner", "amount": "65000" }
-  ]
+  ],
+  "split": "income"
 }

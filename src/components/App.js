@@ -7,6 +7,7 @@ import ExpenseList from "./ExpenseList";
 import Split from "./Split";
 import Chart from "./Chart";
 import TotalList from "./TotalList";
+import base from "../base";
 
 class App extends Component {
   state = {
@@ -17,6 +18,21 @@ class App extends Component {
 
   componentDidMount() {
     this.loadSampleData();
+
+    this.refOne = base.syncState(`incomes`, {
+      context: this,
+      state: "incomes",
+      asArray: true
+    });
+    this.refOne = base.syncState(`expenses`, {
+      context: this,
+      state: "expenses",
+      asArray: true
+    });
+    this.refOne = base.syncState(`split`, {
+      context: this,
+      state: "split"
+    });
   }
 
   loadSampleData = () => {
